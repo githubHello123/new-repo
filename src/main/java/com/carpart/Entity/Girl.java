@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Girl {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String cupSize;
     private Integer age;
 
@@ -27,11 +27,11 @@ public class Girl {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

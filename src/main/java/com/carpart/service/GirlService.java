@@ -11,4 +11,8 @@ import java.util.List;
 public interface GirlService {
 
     List<Girl> grilsAll();
+
+    Girl findById(Long id);
+
+    void delete(Girl girl);
 }

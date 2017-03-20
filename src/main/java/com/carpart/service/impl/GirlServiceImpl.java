@@ -21,4 +21,14 @@ public class GirlServiceImpl implements GirlService {
     public List<Girl> grilsAll() {
         return girlRepository.findAll();
     }
+
+    @Override
+    public void delete(Girl girl) {
+        girlRepository.delete(girl);
+    }
+
+    @Override
+    public Girl findById(Long id) {
+        return girlRepository.findOne(id);
+    }
 }
