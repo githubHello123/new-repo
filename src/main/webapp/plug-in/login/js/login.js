@@ -109,15 +109,14 @@ function Login() {
 		data : formData,
 		error : function() {// 请求失败处理函数
 		},
-		success : function(data) {
-			var d = $.parseJSON(data);
+		success : function(d) {
 			if (d.success) {
 				loginsuccess();
 				setTimeout("window.location.href='"+actionurl+"'", 1000);
 			} else {
 				if(d.msg == "a"){
 					$.dialog.confirm("数据库无数据,是否初始化数据?", function(){
-						window.location = "init.jsp";
+						window.location = "/login/init.jsp";
 					}, function(){
 						//
 					});

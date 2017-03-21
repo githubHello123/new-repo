@@ -605,9 +605,8 @@ function doSubmit(url,name,data) {
 		url : url,// 请求的action路径
 		error : function() {// 请求失败处理函数
 		},
-		success : function(data) {
-			var d = $.parseJSON(data);
-			if (d.success) {
+		success : function(d) {
+			if (d && d.success) {
 				var msg = d.msg;
 				tip(msg);
 				reloadTable();

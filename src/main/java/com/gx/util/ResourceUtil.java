@@ -1,10 +1,14 @@
 package com.gx.util;
 
+import com.carpart.entity.User;
+import com.carpart.manager.ClientManager;
+
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 项目参数工具类
@@ -22,7 +26,16 @@ public class ResourceUtil {
 	public static final String getSessionattachmenttitle(String sessionName) {
 		return bundle.getString(sessionName);
 	}
-	
+
+
+	public static final User getSessionUserName() {
+		HttpSession session = ContextHolderUtils.getSession();
+		if(ClientManager.getInstance().getClient(session.getId())!=null){
+			return ClientManager.getInstance().getClient(session.getId()).getUser();
+		}
+		return null;
+	}
+
 	/**
 	 * 获得请求路径
 	 * 

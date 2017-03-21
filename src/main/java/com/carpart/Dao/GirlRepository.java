@@ -1,6 +1,6 @@
-package com.carpart.Dao;
+package com.carpart.dao;
 
-import com.carpart.Entity.Girl;
+import com.carpart.entity.Girl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,6 @@
 package com.carpart.service;
 
-import com.carpart.Entity.Girl;
-import org.springframework.stereotype.Service;
-
+import com.carpart.entity.Girl;
 import java.util.List;
 
 /**
@@ -12,7 +10,9 @@ public interface GirlService {
 
     List<Girl> grilsAll();
 
-    Girl findById(Long id);
+    Girl findOne(Long id);
 
     void delete(Girl girl);
+
+    Girl add(Girl girl);
 }

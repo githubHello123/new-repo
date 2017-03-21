@@ -56,13 +56,5 @@ public class AjaxJson {
 		return obj.toJSONString();
 	}
 
-	@Override
-	public String toString() {
-		return "AjaxJson{" +
-				"success=" + success +
-				", msg='" + msg + '\'' +
-				", obj=" + obj +
-				", attributes=" + attributes +
-				'}';
-	}
+
 }

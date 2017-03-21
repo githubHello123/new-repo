@@ -1,4 +1,4 @@
-package com.carpart.Entity;
+package com.carpart.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
