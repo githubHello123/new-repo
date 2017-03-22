@@ -8,7 +8,7 @@
 init pwd....
 <script type="text/javascript">
 		window.setTimeout(function() {
-			window.location.replace('loginController.do?pwdInit');
+			window.location.replace('/loginController.do?pwdInit');
 		}, 1000);
 	</script>
 </body>

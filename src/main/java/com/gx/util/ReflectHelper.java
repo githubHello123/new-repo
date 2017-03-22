@@ -112,4 +112,8 @@ public class ReflectHelper {
 		}
 		return value;
 	}
+
+	public Hashtable<String, Method> getGetMethods() {
+		return getMethods;
+	}
 }

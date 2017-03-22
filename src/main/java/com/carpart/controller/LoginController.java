@@ -1,9 +1,11 @@
 package com.carpart.controller;
 
+import com.carpart.constant.Globals;
 import com.carpart.entity.User;
 import com.carpart.manager.ClientManager;
 import com.carpart.model.AjaxJson;
 import com.carpart.model.Client;
+import com.carpart.service.LogService;
 import com.carpart.service.UserService;
 import com.gx.util.ContextHolderUtils;
 import com.gx.util.IpUtil;
@@ -14,13 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -34,10 +33,22 @@ public class LoginController{
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LogService logService;
 
 	@RequestMapping(params = "goPwdInit")
 	public String goPwdInit() {
 		return "login/pwd_init";
+	}
+
+	/**
+	 * 首页跳转
+	 *
+	 * @return
+	 */
+	@RequestMapping(params = "home")
+	public ModelAndView home(HttpServletRequest request) {
+		return new ModelAndView("main/home");
 	}
 
 	/**
@@ -52,7 +63,7 @@ public class LoginController{
 		String userName = "admin";
 		String newPwd = "123456";
 		userService.pwdInit(userName, newPwd);
-		modelAndView = new ModelAndView(new RedirectView("loginController.do?login"));
+		modelAndView = new ModelAndView(new RedirectView("/login"));
 		return modelAndView;
 	}
 
@@ -100,7 +111,7 @@ public class LoginController{
 					client.setUser(u);
 					ClientManager.getInstance().addClinet(session.getId(), client);
 					// 添加登陆日志
-					//systemService.addLog(message, Globals.Log_Type_LOGIN, Globals.Log_Leavel_INFO);
+					logService.addLog(message, Globals.Log_Type_LOGIN, Globals.Log_Leavel_INFO);
                 } else {
                     j.setMsg("用户名或密码错误!");
                     j.setSuccess(false);
@@ -108,31 +119,6 @@ public class LoginController{
             }
         }
 		return j;
-	}
-
-	/**
-	 * 用户登录
-	 * 
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(params = "login")
-	public String login(ModelMap modelMap, HttpServletRequest request) {
-		User user = ResourceUtil.getSessionUserName();
-		if (user != null) {
-            modelMap.put("userName", user.getUserName());
-			request.getSession().setAttribute("CKFinder_UserRole", "admin");
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if (cookie == null || StringUtils.isEmpty(cookie.getName())) {
-					continue;
-				}
-			}
-			return "main/shortcut_main";
-		} else {
-			return "login/login";
-		}
-
 	}
 
 	/**
@@ -145,9 +131,9 @@ public class LoginController{
 	public ModelAndView logout(HttpServletRequest request) {
 		HttpSession session = ContextHolderUtils.getSession();
 		User user = ResourceUtil.getSessionUserName();
-		//systemService.addLog("用户" + user.getUserName() + "已退出", Globals.Log_Type_EXIT, Globals.Log_Leavel_INFO);
+		logService.addLog("用户" + user.getUserName() + "已退出", Globals.Log_Type_EXIT, Globals.Log_Leavel_INFO);
 		ClientManager.getInstance().removeClinet(session.getId());
-		ModelAndView modelAndView = new ModelAndView(new RedirectView("loginController.do?login"));
+		ModelAndView modelAndView = new ModelAndView(new RedirectView("/login"));
 		return modelAndView;
 	}
 

@@ -1,5 +1,6 @@
 package com.carpart.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,12 +14,13 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "password",nullable = false)
     private String password;
-
+    @Column(name = "real_name",nullable = true)
     private String realName;
-
+    @Column(name = "user_name",nullable = false)
     private String userName;
-
+    @Column(name = "status",nullable = false,columnDefinition = "INT default 1",length = 1)
     private Integer status;
 
     public Long getId() {

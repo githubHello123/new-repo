@@ -1,6 +1,5 @@
 package com.carpart.service;
 
-import com.carpart.entity.Girl;
 import com.carpart.entity.User;
 
 import java.util.List;
